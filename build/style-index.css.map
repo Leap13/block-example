@@ -1,0 +1,1 @@
+{"version":3,"file":"./style-index.css","mappings":";;;AAAA;EACI;AACJ,C","sources":["webpack://extra-blocks/./my-block/style.scss"],"sourcesContent":[".wp-block-premium-my-block {\r\n    text-align: center;\r\n}\r\n"],"names":[],"sourceRoot":""}
