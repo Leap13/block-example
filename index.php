@@ -1,4 +1,6 @@
 <?php
+// Move this file to "blocks-config" folder with name "my-block.php".
+
 /**
  * Server-side rendering of the `premium/my-block` block.
  *
@@ -182,12 +184,22 @@ function render_block_pbg_my_block( $attributes, $content, $block ) {
 		}
 	};
 
+	// View file after move it to "assets/js".
 	wp_enqueue_script(
 		'premium-my-block-view',
-		PREMIUM_BLOCKS_URL . 'src/blocks/my-block/view/view.js',
+		PREMIUM_BLOCKS_URL . 'assets/js/my-block.js',
 		array(),
 		PREMIUM_BLOCKS_VERSION,
 		true
+	);
+
+	// Block css file from "assets/css" after run grunt task.
+	wp_enqueue_style(
+		'pbg-my-block-style',
+		PREMIUM_BLOCKS_URL . 'assets/css/minified/my-block.min.css',
+		array(),
+		PREMIUM_BLOCKS_VERSION,
+		'all'
 	);
 
 	return $content;
@@ -201,8 +213,8 @@ function render_block_pbg_my_block( $attributes, $content, $block ) {
  * @throws WP_Error An WP_Error exception parsing the block definition.
  */
 function register_block_pbg_my_block() {
-	register_block_type_from_metadata(
-		PREMIUM_BLOCKS_PATH . 'src/blocks/my-block',
+	register_block_type(
+		'premium/my-block',
 		array(
 			'render_callback' => 'render_block_pbg_my_block',
 		)

@@ -2,7 +2,7 @@ import { registerBlockType } from '@wordpress/blocks';
 
 import { __ } from '@wordpress/i18n';
 
-import PBG_Block_Icons from '../../../blocks-config/block-icons'
+import PBG_Block_Icons from '../../../assets/icons/block-icons'
 
 /**
  * Internal dependencies
@@ -11,11 +11,11 @@ import json from './block.json';
 import edit from './edit';
 import save from './save';
 import './editor.scss';
-import './style.scss';
 
 const { name } = json;
 
 registerBlockType(name, {
+    json,
     /**
      * @see ./edit.js
      */
