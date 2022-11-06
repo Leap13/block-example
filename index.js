@@ -15,7 +15,7 @@ import './editor.scss';
 const { name } = json;
 
 registerBlockType(name, {
-    json,
+    ...json,
     /**
      * @see ./edit.js
      */
