@@ -1,28 +1,31 @@
 
 import { withSelect } from '@wordpress/data';
 import { useEffect } from 'react';
-import { generateBlockId, generateCss, typographyCss, borderCss, paddingCss, marginCss, gradientBackground } from '../../components/HelperFunction';
 import {
     InspectorControls, useBlockProps
 } from "@wordpress/block-editor";
-import PremiumResponsiveTabs from "../../components/premium-responsive-tabs";
-import InspectorTabs from "../../components/InspectorTabs";
-import InspectorTab from "../../components/InspectorTab";
 import { Fragment } from 'react';
 import classnames from "classnames";
-import PremiumTypo from "../../components/premium-typo";
-import WebfontLoader from "../../components/typography/fontLoader";
-import InsideTabs from "../../components/InsideTabs";
-import InsideTab from "../../components/InsideTab";
-import AdvancedPopColorControl from '../../components/Color Control/ColorComponent';
-import PremiumBackgroundControl from "../../components/Premium-Background-Control";
-import PremiumShadow from "../../components/PremiumShadow";
-import PremiumBorder from "../../components/premium-border";
-import SpacingComponent from '../../components/premium-responsive-spacing';
-import MultiButtonsControl from '../../components/responsive-radio';
-import Icons from "../../components/icons";
-import ResponsiveRangeControl from "../../components/RangeControl/responsive-range-control";
 import { __ } from '@wordpress/i18n';
+import {
+    InspectorTabs,
+    InspectorTab,
+    Icons,
+    PremiumBorder,
+    PremiumResponsiveTabs,
+    MultiButtonsControl,
+    PremiumBackgroundControl,
+    AdvancedColorControl as AdvancedPopColorControl,
+    PremiumShadow,
+    WebfontLoader,
+    PremiumTypo,
+    SpacingComponent,
+    ResponsiveRangeControl,
+    InsideTabs,
+    InsideTab,
+    Icons
+} from "@pbg/components";
+import { generateBlockId, generateCss, typographyCss, borderCss, paddingCss, marginCss, gradientBackground } from '@pbg/helpers';
 
 function Edit({ clientId, attributes, setAttributes, deviceType }) {
 
