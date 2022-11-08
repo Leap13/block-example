@@ -3,30 +3,43 @@ import classnames from "classnames";
 import { filterJsCss, generateCss, gradientBackground } from '../../components/HelperFunction';
 
 export default function save({ attributes }) {
+    const {
+        blockId,
+        hideDesktop,
+        hideTablet,
+        hideMobile,
+        color,
+        boxShadow,
+        typography,
+        border,
+        background,
+        hoverColor
+    } = attributes;
+
     const blockProps = useBlockProps.save({
-        className: classnames(attributes.blockId, {
-            ['premium-desktop-hidden']: attributes.hideDesktop,
-            ['premium-tablet-hidden']: attributes.hideTablet,
-            ['premium-mobile-hidden']: attributes.hideMobile,
+        className: classnames(blockId, {
+            ['premium-desktop-hidden']: hideDesktop,
+            ['premium-tablet-hidden']: hideTablet,
+            ['premium-mobile-hidden']: hideMobile,
         }),
         style: filterJsCss({
-            color: attributes?.color,
-            boxShadow: `${attributes.boxShadow?.horizontal}px ${attributes.boxShadow?.vertical}px ${attributes.boxShadow?.blur}px ${attributes.boxShadow?.color} ${attributes.boxShadow?.position}`,
-            borderStyle: attributes.border?.borderType,
-            borderColor: attributes.border?.borderColor,
-            fontFamily: attributes.typography?.fontFamily,
-            fontStyle: attributes.typography?.fontStyle,
-            fontWeight: attributes.typography?.fontWeight,
-            textDecoration: attributes.typography?.textDecoration,
-            textTransform: attributes.typography?.textTransform,
-            ...gradientBackground(attributes?.background)
+            color: color,
+            boxShadow: `${boxShadow?.horizontal}px ${boxShadow?.vertical}px ${boxShadow?.blur}px ${boxShadow?.color} ${boxShadow?.position}`,
+            borderStyle: border?.borderType,
+            borderColor: border?.borderColor,
+            fontFamily: typography?.fontFamily,
+            fontStyle: typography?.fontStyle,
+            fontWeight: typography?.fontWeight,
+            textDecoration: typography?.textDecoration,
+            textTransform: typography?.textTransform,
+            ...gradientBackground(background)
         })
     })
 
     const loadStyles = () => {
         const styles = {};
-        styles[`.${attributes.blockId}:hover`] = {
-            "color": `${attributes?.hoverColor}!important`
+        styles[`.${blockId}:hover`] = {
+            "color": `${hoverColor}!important`
         }
 
         return generateCss(styles);

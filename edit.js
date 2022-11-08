@@ -28,6 +28,22 @@ import {
 import { generateBlockId, generateCss, typographyCss, borderCss, paddingCss, marginCss, gradientBackground } from '@pbg/helpers';
 
 function Edit({ clientId, attributes, setAttributes, deviceType }) {
+    const {
+        blockId,
+        hideDesktop,
+        hideTablet,
+        hideMobile,
+        align,
+        width,
+        color,
+        boxShadow,
+        typography,
+        border,
+        padding,
+        margin,
+        background,
+        hoverColor
+    } = attributes;
 
     useEffect(() => {
         // Set block id.
@@ -38,29 +54,29 @@ function Edit({ clientId, attributes, setAttributes, deviceType }) {
     }, []);
 
     const blockProps = useBlockProps({
-        className: classnames(attributes.blockId, {
-            ['premium-desktop-hidden']: attributes.hideDesktop,
-            ['premium-tablet-hidden']: attributes.hideTablet,
-            ['premium-mobile-hidden']: attributes.hideMobile,
+        className: classnames(blockId, {
+            ['premium-desktop-hidden']: hideDesktop,
+            ['premium-tablet-hidden']: hideTablet,
+            ['premium-mobile-hidden']: hideMobile,
         }),
         style: {
-            textAlign: attributes?.align?.[deviceType],
-            width: attributes?.width?.[deviceType],
-            color: attributes?.color,
-            boxShadow: `${attributes.boxShadow?.horizontal}px ${attributes.boxShadow?.vertical}px ${attributes.boxShadow?.blur}px ${attributes.boxShadow?.color} ${attributes.boxShadow?.position}`,
-            ...typographyCss(attributes.typography, deviceType),
-            ...borderCss(attributes.border, deviceType),
-            ...paddingCss(attributes.padding, deviceType),
-            ...marginCss(attributes.margin, deviceType),
-            ...gradientBackground(attributes.background)
+            textAlign: align?.[deviceType],
+            width: width?.[deviceType],
+            color: color,
+            boxShadow: `${boxShadow?.horizontal}px ${boxShadow?.vertical}px ${boxShadow?.blur}px ${boxShadow?.color} ${boxShadow?.position}`,
+            ...typographyCss(typography, deviceType),
+            ...borderCss(border, deviceType),
+            ...paddingCss(padding, deviceType),
+            ...marginCss(margin, deviceType),
+            ...gradientBackground(background)
         }
     });
 
     let loadGoogleFonts;
-    if (attributes.typography?.fontFamily !== 'Default') {
+    if (typography?.fontFamily !== 'Default') {
         const fontConfig = {
             google: {
-                families: [attributes.typography?.fontFamily],
+                families: [typography?.fontFamily],
             },
         }
         loadGoogleFonts = (
@@ -71,8 +87,8 @@ function Edit({ clientId, attributes, setAttributes, deviceType }) {
 
     const loadStyles = () => {
         const styles = {};
-        styles[`.${attributes.blockId}:hover`] = {
-            "color": `${attributes?.hoverColor}!important`
+        styles[`.${blockId}:hover`] = {
+            "color": `${hoverColor}!important`
         }
 
         return generateCss(styles);
@@ -84,7 +100,7 @@ function Edit({ clientId, attributes, setAttributes, deviceType }) {
                 <InspectorTab key={"layout"}>
                     <ResponsiveRangeControl
                         label={__("Size", 'premium-blocks-for-gutenberg')}
-                        value={attributes.width}
+                        value={width}
                         units={['px', '%']}
                         onChange={newValue => setAttributes({ width: newValue })}
                         showUnit={true}
@@ -93,7 +109,7 @@ function Edit({ clientId, attributes, setAttributes, deviceType }) {
                     />
                     <MultiButtonsControl
                         choices={[{ value: 'left', label: __('Left', "premium-blocks-for-gutenberg"), icon: Icons.alignLeft }, { value: 'center', label: __('Center', "premium-blocks-for-gutenberg"), icon: Icons.alignCenter }, { value: 'right', label: __('Right', "premium-blocks-for-gutenberg"), icon: Icons.alignRight }]}
-                        value={attributes.align}
+                        value={align}
                         onChange={(align) => setAttributes({ align: align })}
                         label={__("Align", "premium-blocks-for-gutenberg")}
                         showIcons={true} />
@@ -101,11 +117,11 @@ function Edit({ clientId, attributes, setAttributes, deviceType }) {
                 <InspectorTab key={"style"}>
                     <PremiumTypo
                         components={["responsiveSize", "weight", "family", "spacing", "style", "Upper", "line", "Decoration"]}
-                        value={attributes.typography}
+                        value={typography}
                         onChange={newValue => setAttributes({ typography: newValue })}
                     />
                     <PremiumBackgroundControl
-                        value={attributes?.background}
+                        value={background}
                         onChange={(value) =>
                             setAttributes({
                                 background: value,
@@ -116,7 +132,7 @@ function Edit({ clientId, attributes, setAttributes, deviceType }) {
                         <InsideTab tabTitle={__("Normal", "premium-blocks-for-gutenberg")}>
                             <AdvancedPopColorControl
                                 label={__("Color", "premium-blocks-for-gutenberg")}
-                                colorValue={attributes.color}
+                                colorValue={color}
                                 colorDefault={""}
                                 onColorChange={(value) => setAttributes({ color: value })}
                             />
@@ -124,7 +140,7 @@ function Edit({ clientId, attributes, setAttributes, deviceType }) {
                         <InsideTab tabTitle={__("Hover", "premium-blocks-for-gutenberg")}>
                             <AdvancedPopColorControl
                                 label={__("Color", "premium-blocks-for-gutenberg")}
-                                colorValue={attributes.hoverColor}
+                                colorValue={hoverColor}
                                 colorDefault={""}
                                 onColorChange={(value) => setAttributes({ hoverColor: value })}
                             />
@@ -132,23 +148,23 @@ function Edit({ clientId, attributes, setAttributes, deviceType }) {
                     </InsideTabs>
                     <PremiumShadow
                         label={__("Box Shadow", "premium-blocks-for-gutenberg")}
-                        value={attributes.boxShadow}
+                        value={boxShadow}
                         onChange={(value) => setAttributes({ boxShadow: value })}
                         boxShadow={true}
                     />
                     <PremiumBorder
                         label={__("Border")}
-                        value={attributes.border}
+                        value={border}
                         onChange={(value) => setAttributes({ border: value })}
                     />
-                    <SpacingComponent value={attributes.margin} responsive={true} showUnits={true} label={__("Margin")} onChange={(value) => setAttributes({ margin: value })} />
-                    <SpacingComponent value={attributes.padding} responsive={true} showUnits={true} label={__("Padding")} onChange={(value) => setAttributes({ padding: value })} />
+                    <SpacingComponent value={margin} responsive={true} showUnits={true} label={__("Margin")} onChange={(value) => setAttributes({ margin: value })} />
+                    <SpacingComponent value={padding} responsive={true} showUnits={true} label={__("Padding")} onChange={(value) => setAttributes({ padding: value })} />
                 </InspectorTab>
                 <InspectorTab key={"advance"}>
                     <PremiumResponsiveTabs
-                        Desktop={attributes.hideDesktop}
-                        Tablet={attributes.hideTablet}
-                        Mobile={attributes.hideMobile}
+                        Desktop={hideDesktop}
+                        Tablet={hideTablet}
+                        Mobile={hideMobile}
                         onChangeDesktop={(value) =>
                             setAttributes({
                                 hideDesktop: value,
