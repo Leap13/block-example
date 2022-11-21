@@ -23,7 +23,6 @@ import {
     ResponsiveRangeControl,
     InsideTabs,
     InsideTab,
-    Icons
 } from "@pbg/components";
 import { generateBlockId, generateCss, typographyCss, borderCss, paddingCss, marginCss, gradientBackground } from '@pbg/helpers';
 
@@ -73,14 +72,15 @@ function Edit({ clientId, attributes, setAttributes, deviceType }) {
     });
 
     let loadGoogleFonts;
+    const googleFonts = [];
     if (typography?.fontFamily !== 'Default') {
-        const fontConfig = {
-            google: {
-                families: [typography?.fontFamily],
-            },
-        }
+        googleFonts.push(typography?.fontFamily);
+    }
+    if (googleFonts.length > 0) {
         loadGoogleFonts = (
-            <WebfontLoader config={fontConfig}>
+            <WebfontLoader config={{
+                families: googleFonts,
+            }}>
             </WebfontLoader>
         )
     }
@@ -116,7 +116,6 @@ function Edit({ clientId, attributes, setAttributes, deviceType }) {
                 </InspectorTab>
                 <InspectorTab key={"style"}>
                     <PremiumTypo
-                        components={["responsiveSize", "weight", "family", "spacing", "style", "Upper", "line", "Decoration"]}
                         value={typography}
                         onChange={newValue => setAttributes({ typography: newValue })}
                     />
