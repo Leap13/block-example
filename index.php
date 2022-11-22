@@ -221,6 +221,6 @@ function register_block_pbg_my_block() {
 	);
 }
 
-add_action( 'init', 'register_block_pbg_my_block' );
+register_block_pbg_my_block();
 
 
